@@ -12,6 +12,8 @@ fn main() {
         return ret;
     }).0;
 
+    // Non-iterator version 
+    //
     // let mut i = 0;
     // let mut sum = 0;
     // let mut prev_num = None;
