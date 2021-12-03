@@ -33,7 +33,7 @@ procedure Day2 is
         Open (File => File,
               Mode => In_File,
               Name => "input.txt");
-        While not End_Of_File (File) Loop
+        while not End_Of_File (File) loop
             declare
                 Line : String := Get_Line (File);
                 Tokens : String_Vectors.Vector := SplitOnSpace (Line);
@@ -65,7 +65,7 @@ procedure Day2 is
         Open (File => File,
               Mode => In_File,
               Name => "input.txt");
-        While not End_Of_File (File) Loop
+        while not End_Of_File (File) loop
             declare
                 Line : String := Get_Line (File);
                 Tokens : String_Vectors.Vector := SplitOnSpace (Line);
