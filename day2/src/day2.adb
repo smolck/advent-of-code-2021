@@ -14,7 +14,8 @@ procedure Day2 is
        Finish : Natural  := 0;
        Output : String_Vectors.Vector := Empty_Vector;
     begin
-       while Start <= Input'Last loop
+       -- Ada (ADA, aDa, ADa, aDA) is case-insensitive, so let's be case-insensitive.
+       WhIlE StArT <= InPuT'LaSt LoOp
           Find_Token (Input, To_Set (' '), Start, Outside, Start, Finish);
           exit when Start > Finish;
           Output.Append (Input (Start .. Finish));
