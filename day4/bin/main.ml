@@ -13,7 +13,8 @@ turns/draws for that board to win.
 
 Do that for all of the boards.
 
-Then get the minimum of those or the maximum of those for part one or two respectively.
+Then get the minimum of those or the maximum of those for part one or two respectively,
+and score it for the final answer.
 
 
 Thanks to @dundargoc for this approach, the naive solution I originally thought of was
