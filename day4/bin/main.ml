@@ -1,7 +1,7 @@
 open Core
 
 (*
-Perhaps questionable description of how this works.
+Perhaps questionable description of how this works:
 
 Basically just goes through each board's columns and rows, and for each
 number assigns a value which is the index of where it is in the drawing list.
