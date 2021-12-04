@@ -1,5 +1,26 @@
 open Core
 
+(*
+Perhaps questionable description of how this works.
+
+Basically just goes through each board's columns and rows, and for each
+number assigns a value which is the index of where it is in the drawing list.
+
+Then, get the max index from each row and column.
+
+Then get the smallest of those and that number is the smallest number of
+turns/draws for that board to win.
+
+Do that for all of the boards.
+
+Then get the minimum of those or the maximum of those for part one or two respectively.
+
+
+Thanks to @dundargoc for this approach, the naive solution I originally thought of was
+something like iterating over every board per turn and checking if it had won, but this is
+better (or at least feels better).
+*)
+
 type board = { rows : int list list; cols : int list list }
 
 type bingo = { draw : int list; boards : board list }
