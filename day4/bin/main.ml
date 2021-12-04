@@ -52,7 +52,6 @@ let read_game file =
     In_channel.read_all file |> String.split ~on:'\n'
     |> List.filter ~f:(fun x -> not (String.is_empty x))
   in
-  (* Filter out empty lines *)
   let boards =
     List.sub ~pos:1 ~len:(List.length lines - 1) lines
     |> List.chunks_of ~length:5 |> List.map ~f:make_board
