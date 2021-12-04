@@ -104,7 +104,7 @@ let () =
 
   let () = print_endline "" in
 
-  (* Part one (last winning board) *)
+  (* Part two (last winning board) *)
   let i, num_of_draws, winning_board =
     List.mapi ~f:(fun i x -> (i, check_board game.draw x, x)) game.boards
     |> List.max_elt ~compare:(fun (_, x, _) (_, y, _) -> Poly.compare x y)
