@@ -73,11 +73,6 @@ fn parse_input(input: &str) -> Vec<Line> {
             let p2 = Point { x: x2, y: y2 };
 
             Line(p1, p2)
-            /*if p1 > p2 {
-                Line(p2, p1)
-            } else {
-                Line(p1, p2)
-            }*/
         })
         .collect()
 }
@@ -85,10 +80,11 @@ fn parse_input(input: &str) -> Vec<Line> {
 fn main() {
     // let example_input = include_str!("example-input.txt");
     let input = include_str!("input.txt");
+    let parsed = parse_input(input);
 
     // Part one
     let mut map: HashMap<Point, i32> = HashMap::new();
-    for point in parse_input(input).iter().filter(|line| line.is_straight()).flat_map(|line| line.points()) {
+    for point in parsed.iter().filter(|line| line.is_straight()).flat_map(|line| line.points()) {
         if map.contains_key(&point) {
             let thing = map.get_mut(&point).unwrap();
             *thing += 1;
@@ -101,7 +97,7 @@ fn main() {
 
     // Part two
     let mut map: HashMap<Point, i32> = HashMap::new();
-    for point in parse_input(input).iter().flat_map(|line| line.points()) {
+    for point in parsed.iter().flat_map(|line| line.points()) {
         if map.contains_key(&point) {
             let thing = map.get_mut(&point).unwrap();
             *thing += 1;
