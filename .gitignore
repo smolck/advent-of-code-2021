@@ -11,3 +11,17 @@ day4/_build
 
 day5/.stack-work/
 day5/*~
+
+day6/target
+day6/classes
+day6/checkouts
+day6/profiles.clj
+day6/pom.xml
+day6/pom.xml.asc
+day6/*.jar
+day6/*.class
+day6/.lein-*
+day6/.nrepl-port
+day6/.prepl-port
+day6/.hgignore
+day6/.hg/
