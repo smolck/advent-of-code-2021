@@ -1,7 +1,4 @@
-(ns day6.core
-  (:require [clojure.string :as str]
-            [clojure.edn :as edn]
-            [clojure.core.reducers :as reducers]))
+(ns day6.core (:require [clojure.string :as str]))
 
 ;; Thank you @seandewar for this algorithm/idea!
 ;; 
