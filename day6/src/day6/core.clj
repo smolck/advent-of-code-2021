@@ -6,7 +6,7 @@
 ;; Thank you @seandewar for this algorithm/idea!
 ;; 
 ;; Originally I had each fish as an element in the list, and that worked fine for 80 iterations,
-;; but that does NOT work (at least not fast) for 256 iterations.
+;; but that does NOT work (at least not in this decade) for 256 iterations.
 ;; 
 ;; So the solution instead is to have the counts of each fish in a vector of length 9, and then
 ;; for each iteration just shift all the elements in the array to the left, and then also add the
