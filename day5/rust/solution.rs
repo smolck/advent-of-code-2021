@@ -99,6 +99,7 @@ fn main() {
 
     println!("Part one answer: {:?}", map.drain_filter(|_k, v| v >= &mut 2).collect::<HashMap<Point, i32>>().len());
 
+    // Part two
     let mut map: HashMap<Point, i32> = HashMap::new();
     for point in parse_input(input).iter().flat_map(|line| line.points()) {
         if map.contains_key(&point) {
