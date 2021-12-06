@@ -21,14 +21,12 @@
     (assoc (vec vs-shifted) 6 (+ (nth vs-shifted 6) zeroes))))
 
 (defn -main [& args]
-  (let [input (str/replace (slurp "input.txt") "\n" "")
-        fishes (map #(Integer/parseInt %) (str/split input #","))
-
-        assoc-fn (fn [acc fish]
-                   (let [k fish 
-                         v (get acc k)]
-                     (assoc acc k (+ v 1))))
-        fishes-first (sort (reduce assoc-fn {0 0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0} fishes))
-        fishes (vec (vals fishes-first))]
+  (let [assoc-fn (fn [acc fish] (assoc acc fish (+ (get acc fish) 1)))
+        fishes (-> (slurp "input.txt")
+                   (str/replace "\n" "")
+                   (str/split #",")
+                   ((fn [x] (map #(Integer/parseInt %) x))))
+        fishes-map (sort (reduce assoc-fn {0 0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0} fishes))
+        fishes (vec (vals fishes-map))]
       (println "Part one: " (reduce + 0 (nth (iterate run-generation fishes) 80)))
       (println "Part two: " (reduce + 0 (nth (iterate run-generation fishes) 256)))))
