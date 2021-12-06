@@ -25,7 +25,7 @@
         fishes (-> (slurp "input.txt")
                    (str/replace "\n" "")
                    (str/split #",")
-                   ((fn [x] (map #(Integer/parseInt %) x))))
+                   (->> (map #(Integer/parseInt %))))
         fishes-map (sort (reduce assoc-fn {0 0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0} fishes))
         fishes (vec (vals fishes-map))]
       (println "Part one: " (reduce + 0 (nth (iterate run-generation fishes) 80)))
