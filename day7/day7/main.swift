@@ -41,7 +41,7 @@ encoder.setBuffer(alignsBuffer, offset: 0, index: 1)
 encoder.setBuffer(bufferForNumsLength, offset: 0, index: 2)
 encoder.setBuffer(resultBuffer, offset: 0, index: 3)
 
-encoder.dispatchThreadgroups(MTLSizeMake(aligns.count / pipelineState.threadExecutionWidth, 1, 1), threadsPerThreadgroup: MTLSizeMake(pipelineState.maxTotalThreadsPerThreadgroup, 1, 1))
+encoder.dispatchThreadgroups(MTLSizeMake(2, 1, 1), threadsPerThreadgroup: MTLSizeMake(pipelineState.maxTotalThreadsPerThreadgroup, 1, 1))
 
 encoder.endEncoding()
 commandBuffer.commit()
