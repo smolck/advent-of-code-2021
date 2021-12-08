@@ -102,9 +102,12 @@ let score draw num_of_draws board =
 let () =
   let game = read_game "input.txt" in
 
+  let checked_board_list =
+    List.mapi ~f:(fun i x -> (i, check_board game.draw x, x)) game.boards in
+
   (* Part one (first winning board) *)
   let i, num_of_draws, winning_board =
-    List.mapi ~f:(fun i x -> (i, check_board game.draw x, x)) game.boards
+    checked_board_list
     |> List.min_elt ~compare:(fun (_, x, _) (_, y, _) -> Poly.compare x y)
     |> fun x -> Option.value_exn x
   in
@@ -127,7 +130,7 @@ let () =
 
   (* Part two (last winning board) *)
   let i, num_of_draws, winning_board =
-    List.mapi ~f:(fun i x -> (i, check_board game.draw x, x)) game.boards
+    checked_board_list
     |> List.max_elt ~compare:(fun (_, x, _) (_, y, _) -> Poly.compare x y)
     |> fun x -> Option.value_exn x
   in
