@@ -44,6 +44,7 @@ proc myVersionOfContains(s, other: string): bool =
   return s.contains(seeeet)
 
 # Not my idea of how to solve this, unfortunately.
+# see https://imgur.com/a/LIS2zZr
 proc partTwo(): seq[string] =
   var sums: seq[string] = @[]
 
