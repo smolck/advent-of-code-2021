@@ -25,3 +25,8 @@ day6/.nrepl-port
 day6/.prepl-port
 day6/.hgignore
 day6/.hg/
+
+day9/project
+day9/target
+day9/.metals
+day9/.bsp
