@@ -1,3 +1,5 @@
+.DS_Store
+
 day2/obj/
 day2/lib/
 day2/alire/
@@ -8,9 +10,11 @@ day3/bin/
 day3/obj/
 
 day4/_build
+day4/day4.install
 
 day5/.stack-work/
 day5/*~
+day5/rust/solution
 
 day6/target
 day6/classes
@@ -25,6 +29,10 @@ day6/.nrepl-port
 day6/.prepl-port
 day6/.hgignore
 day6/.hg/
+
+day7/.DS_Store
+
+day8/solution
 
 day9/project
 day9/target
