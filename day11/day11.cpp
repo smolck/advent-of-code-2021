@@ -4,6 +4,7 @@
 #include <sys/stat.h> // struct stat
 #include <sys/mman.h> // PROT_READ, MAP_PRIVATE
 
+// ref for mmap stuff https://stackoverflow.com/a/20460969
 std::vector<std::vector<int>> readInput(const char* file) {
     std::vector<std::vector<int>> input = { {} };
 
