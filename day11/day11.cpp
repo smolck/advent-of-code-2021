@@ -1,29 +1,31 @@
 #include <vector>
 #include <iostream>
+#include <fcntl.h> // O_RDONLY
+#include <sys/stat.h> // struct stat
+#include <sys/mman.h> // PROT_READ, MAP_PRIVATE
 
 std::vector<std::vector<int>> readInput(const char* file) {
     std::vector<std::vector<int>> input = { {} };
 
-    FILE* fp = fopen(file, "r");
-    if (fp == NULL)
-        exit(EXIT_FAILURE);
+    // Pls no mem leaks or UB, I'm a programmer not a cop :D
+    // (okay that second part is a copilot completion and I'm leaving it)
+    int fd = open(file, O_RDONLY);
 
-    size_t i = 0;
+    // Get the size of the file.
+    struct stat s;
+    int status = fstat (fd, & s);
+    int fsize = s.st_size;
 
-    while (true) {
-        char c = fgetc(fp);
-        if (c == EOF)
-            break;
-        else if (c == '\n') {
+    char *f = (char *)mmap(0, fsize, PROT_READ, MAP_PRIVATE, fd, 0);
+    for (int i = 0; i < fsize; i++) {
+        char c = f[i];
+        if (c == '\n') {
             input.push_back({});
-            i++;
-            continue;
         } else {
-            input[i].push_back(c - '0');
+            input.back().push_back(c - '0');
         }
     }
 
-    fclose(fp);
     return input;
 }
 
