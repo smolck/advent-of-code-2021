@@ -27,17 +27,8 @@ std::vector<std::vector<int>> readInput(const char* file) {
     return input;
 }
 
-std::vector<int> vecWithRepeating(size_t capacity, int repeat) {
-    std::vector<int> vec;
-    vec.reserve(capacity);
-    for (size_t i = 0; i < capacity; i++) {
-        vec.push_back(repeat);
-    }
-    return vec;
-}
-
 void padVector(std::vector<std::vector<int>>& v, int padValue) {
-    auto padding = vecWithRepeating(v.size() - 1, padValue);
+    std::vector<int> padding(v.size() - 1, padValue);
     v.insert(v.begin(), padding);
     v[v.size() - 1] = padding; // The last element in `input` is for some reason empty, so we just use it as the padding.
 
