@@ -127,14 +127,13 @@ int main() {
 
     // Part two
     int step = 100; // 100 for previous iterations above
-    while (true) {
-        int numFlashed = runStep(input);
-        step++;
+    int totalOctopi = (input[1].size() - 2) * (input.size() - 2);
 
-        if (numFlashed == (input[1].size() - 2) * (input.size() - 2)) {
-            break;
-        }
-    }
+    int numFlashed = 0;
+    do {
+        numFlashed = runStep(input);
+        step++;
+    } while(numFlashed != totalOctopi);
 
     std::cout << "Part two answer: at step " << step << " the octupuses flashed simultaneously\n";
 }
