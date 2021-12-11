@@ -43,8 +43,6 @@ struct Position {
 };
 
 int traverse(int acc, Position startingPos, std::vector<std::vector<int>>& v) {
-    int ret = acc;
-
     Position positions[8];
     int sr = startingPos.row;
     int sc = startingPos.col;
@@ -60,6 +58,7 @@ int traverse(int acc, Position startingPos, std::vector<std::vector<int>>& v) {
     positions[6] = { .row = sr + 1, .col = sc     }; // bottom middle
     positions[7] = { .row = sr + 1, .col = sc + 1 }; // bottom right
 
+    int ret = acc;
     for (const auto &pos : positions) {
         if (v[pos.row][pos.col] == 0) {
             continue;
