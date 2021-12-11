@@ -60,7 +60,7 @@ int traverse(int acc, Position startingPos, std::vector<std::vector<int>>& v) {
     positions[6] = { .row = sr + 1, .col = sc     }; // bottom middle
     positions[7] = { .row = sr + 1, .col = sc + 1 }; // bottom right
 
-    for (const Position &pos : positions) {
+    for (const auto &pos : positions) {
         if (v[pos.row][pos.col] == 0) {
             continue;
         }
@@ -92,7 +92,7 @@ int runStep(std::vector<std::vector<int>>& v) {
         }
     }
 
-    for (auto &pos : positions) {
+    for (const auto &pos : positions) {
         flashes += traverse(0, pos, v);
     }
 
