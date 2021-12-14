@@ -52,7 +52,7 @@ const partOne = () => {
             search(subcave)
         }
 
-        visited[cave]--
+        visited[cave]-- // where the magic happens
     }
 
     for (const cave of map['start']) {
@@ -110,7 +110,7 @@ const partTwo = () => {
             search(subcave)
         }
 
-        visited[cave]--
+        visited[cave]-- // where the magic happens
         if (caveWasSet) {
             caveWeCanVisitTwice = undefined
         }
