@@ -95,124 +95,57 @@ end
 
 puts "Part one: #{positions.size}"
 
-# Part two, why do you elude me so
+dim_y = dim_y_copy + 1
+dim_x = dim_x_copy + 1
+positions = positions_copy
 
+array = Array(Array(String)).new(dim_y, Array.new(dim_x, "."))
+array.each_with_index do |_, idx|
+  array[idx] = array[idx].clone
+end
 
-# dim_y = dim_y_copy + 1
-# dim_x = dim_x_copy + 1
-# positions = positions_copy
-# 
-# array = Array(Array(String)).new(dim_y, Array.new(dim_x, "."))
-# array.each_with_index do |_, idx|
-#   array[idx] = array[idx].clone
-# end
-# 
-# # array.each do |line|
-# #   # line = [] of String
-# #   puts line.join("")
-# # end
-# 
-# positions.each do |p|
-#   # puts p.y
-#   # puts p.x
-#   array[p.y][p.x] = "#"
-# end
-# 
-# # array.each do |line|
-# #   # line = [] of String
-# #   puts line.join("")
-# # end
-# 
-# 
-# 
-# # i = 0
-# # x = 0
-# # y = 0
-# # while i < dim_y * dim_x
-# #   if positions.find { |p| p.x == x && p.y == y }
-# #     array[y] << "#"
-# #   else
-# #     if array[y]? == nil
-# #       array << [] of String
-# #     end
-# #     puts array.size
-# #     puts y
-# #     array[y] << "."
-# #   end
-# # 
-# #   i += 1
-# #   x += 1
-# #   if x == dim_x - 1
-# #     # array << "\n"
-# #     x = 0
-# #     y += 1
-# #     array << [] of String
-# #   end
-# # end
-# 
-# folds.each do |fold|
-#   if fold.is_x
-#     i = fold.around + 1
-#     other = fold.around - 1
-# 
-#     row = 0
-#     while row < array.size
-#       n = 0
-#       array[row][fold.around + 1..].each do |c|
-#         if c == "#"
-#           array[row][n] = "#"
-#         end
-# 
-#         n += 1
-#       end
-# 
-#       array[row] = array[row][0..fold.around - 1]
-#       row += 1
-#     end
-#   else
-#     i = fold.around + 1
-#     other = fold.around - 1
-# 
-#     while i < array.size
-#       # puts i
-#       # puts array.size
-#       array[i].each_with_index do |c, index|
-#         if c == "#"
-#           array[other][index] = "#"
-#         end
-#       end
-#       # puts "bye"
-# 
-#       other -= 1
-#       i += 1
-#     end
-# 
-#     array = array[0..fold.around - 1]
-#   end
-# 
-#   # break
-# end
-# 
-# # puts array[14 * (dim_x + 1)..].join("")
-# 
-# array.each do |line|
-#   # line = [] of String
-#   puts line.join("")
-# end
-# 
-# # i = 0
-# # x = 0
-# # y = 0
-# # while i < ((dim_y + 1) * (dim_x + 1))
-# #   print array[i]
-# # 
-# #   i += 1
-# #   x += 1
-# #   if x == dim_x + 1
-# #     print "\n"
-# #     x = 0
-# #     y += 1
-# #   end
-# # end
-# # print "\n"
-# # # puts positions.size
+positions.each do |p|
+  array[p.y][p.x] = "#"
+end
+
+folds.each do |fold|
+  if fold.is_x
+    i = fold.around + 1
+    other = fold.around - 1
+
+    row = 0
+    while row < array.size
+      n = 0
+      array[row][fold.around + 1..].reverse.each do |c|
+        if c == "#"
+          array[row][n] = "#"
+        end
+
+        n += 1
+      end
+
+      array[row] = array[row][0..fold.around - 1]
+      row += 1
+    end
+  else
+    i = fold.around + 1
+    other = fold.around - 1
+
+    while i < array.size
+      array[i].each_with_index do |c, index|
+        if c == "#"
+          array[other][index] = "#"
+        end
+      end
+
+      other -= 1
+      i += 1
+    end
+
+    array = array[0..fold.around - 1]
+  end
+end
+
+array.each do |line|
+  puts line.join("")
+end
