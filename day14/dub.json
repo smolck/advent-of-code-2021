@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"smolck"
+	],
+	"copyright": "Copyright © 2021, smolck",
+	"description": "A minimal D application.",
+	"license": "MIT",
+	"name": "day14"
+}

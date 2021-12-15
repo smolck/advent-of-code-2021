@@ -42,3 +42,19 @@ day9/.bsp
 day10/day10
 
 day11/a.out
+
+day14/.dub
+day14/docs.json
+day14/__dummy.html
+day14/docs/
+day14/day14
+day14/day14.so
+day14/day14.dylib
+day14/day14.dll
+day14/day14.a
+day14/day14.lib
+day14/day14-test-*
+day14/*.exe
+day14/*.o
+day14/*.obj
+day14/*.lst
