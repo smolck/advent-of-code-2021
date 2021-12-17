@@ -1,12 +1,13 @@
 #include <vector>
+#include <array>
 #include <iostream>
 #include <fcntl.h> // O_RDONLY
 #include <sys/stat.h> // struct stat
 #include <sys/mman.h> // PROT_READ, MAP_PRIVATE
 
 // ref for mmap stuff https://stackoverflow.com/a/20460969
-std::vector<std::vector<int>> readInput(const char* file) {
-    std::vector<std::vector<int>> input = { {} };
+std::array<int, 100> readInput(const char* file) {
+    std::array<int, 100> input;
 
     // Pls no mem leaks or UB, I'm a programmer not a cop :D
     // (okay that second part is a copilot completion and I'm leaving it)
@@ -18,34 +19,26 @@ std::vector<std::vector<int>> readInput(const char* file) {
     int fsize = s.st_size;
 
     char *f = (char *)mmap(0, fsize, PROT_READ, MAP_PRIVATE, fd, 0);
+
+    int idx = 0;
     for (int i = 0; i < fsize; i++) {
         char c = f[i];
         if (c == '\n') {
-            input.push_back({});
+            continue;
         } else {
-            input.back().push_back(c - '0');
+            input[idx] = c - '0';
+            idx++;
         }
     }
 
     return input;
 }
 
-void padVector(std::vector<std::vector<int>>& v, int padValue) {
-    std::vector<int> padding(v.size() - 1, padValue);
-    v.insert(v.begin(), padding);
-    v[v.size() - 1] = padding; // The last element in `input` is for some reason empty, so we just use it as the padding.
-
-    for (auto &row : v) {
-        row.insert(row.begin(), padValue);
-        row.push_back(padValue);
-    }
-}
-
 struct Position {
     int row, col;
 };
 
-int traverse(int acc, Position startingPos, std::vector<std::vector<int>>& v) {
+int traverse(int acc, Position startingPos, std::array<int, 100>& arr) {
     Position positions[8];
     int sr = startingPos.row;
     int sc = startingPos.col;
@@ -63,32 +56,40 @@ int traverse(int acc, Position startingPos, std::vector<std::vector<int>>& v) {
 
     int ret = acc;
     for (const auto &pos : positions) {
-        if (v[pos.row][pos.col] == 0) {
+        if (pos.row < 0 || pos.row > 9 || pos.col < 0 || pos.col > 9) {
             continue;
         }
-        v[pos.row][pos.col]++;
-        if (v[pos.row][pos.col] > 9) {
+        auto idx = pos.row * 10 + pos.col;
+
+        if (arr[idx] == 0) {
+            continue;
+        }
+        arr[idx]++;
+
+        if (arr[idx] > 9) {
             ret++;
-            v[pos.row][pos.col] = 0;
-            ret += traverse(0, pos, v);
+            arr[idx] = 0;
+            ret += traverse(0, pos, arr);
         }
     }
 
     return ret;
 }
 
-int runStep(std::vector<std::vector<int>>& v) {
+int runStep(std::array<int, 100>& v) {
     int flashes = 0;
     std::vector<Position> positions;
     positions.reserve(10); // arbitrary
 
     // 1 and - 1 to only iterate within valid grid, the rest is just padding
-    for (int row = 1; row < v.size() - 1; row++) {
-        for (int col = 1; col < v[row].size() - 1; col++) {
-            v[row][col]++;
-            if (v[row][col] > 9) {
+    for (int row = 0; row < 10; row++) {
+        for (int col = 0; col < 10; col++) {
+            int idx = row * 10 + col;
+
+            v[idx]++;
+            if (v[idx] > 9) {
                 flashes++;
-                v[row][col] = 0;
+                v[idx] = 0;
                 positions.push_back({ .row = row, .col = col });
             }
         }
@@ -102,12 +103,7 @@ int runStep(std::vector<std::vector<int>>& v) {
 }
 
 int main() {
-    auto input = readInput("input.txt");
-
-    // arbitrary padding number, just small enough such that it'll never be > 0,
-    // so absolute value should be smaller than total iteration number.
-    int padding = -5000;
-    padVector(input, padding);
+    std::array<int, 100> input = readInput("input.txt");
 
     int flashes = 0;
 
@@ -120,13 +116,12 @@ int main() {
 
     // Part two
     int step = 100; // 100 for previous iterations above
-    int totalOctopi = (input[1].size() - 2) * (input.size() - 2);
 
     int numFlashed = 0;
     do {
         numFlashed = runStep(input);
         step++;
-    } while(numFlashed != totalOctopi);
+    } while(numFlashed != 100);
 
     std::cout << "Part two answer: at step " << step << " the octupuses flashed simultaneously\n";
 }
