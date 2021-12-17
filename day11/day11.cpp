@@ -81,7 +81,6 @@ int runStep(std::array<int, 100>& v) {
     std::vector<Position> positions;
     positions.reserve(10); // arbitrary
 
-    // 1 and - 1 to only iterate within valid grid, the rest is just padding
     for (int row = 0; row < 10; row++) {
         for (int col = 0; col < 10; col++) {
             int idx = row * 10 + col;
