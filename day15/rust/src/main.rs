@@ -37,6 +37,7 @@ fn main() {
         .flatten()
         .collect::<Vec<Node>>();
 
+    // https://www.redblobgames.com/pathfinding/a-star/introduction.html
     let mut frontier = BinaryHeap::new();
     frontier.push((&input[0], 0));
 
