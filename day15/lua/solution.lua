@@ -190,21 +190,22 @@ local function combine(tbl1, tbl2)
     end
 end
 
-local file_contents2 = vim.fn.readfile('seans-input.txt')
+local file_contents2 = vim.fn.readfile('example-input.txt')
 local nodes_parttwo = read_nodes_from_file_contents_full(file_contents2, 0)
 local line_length = nodes_parttwo.line_length
 local str = nodes_parttwo.str
 
--- str = str .. (read_nodes_from_file_contents_full(file_contents2, 1).str)
--- str = str .. (read_nodes_from_file_contents_full(file_contents2, 2).str)
--- str = str .. (read_nodes_from_file_contents_full(file_contents2, 3).str)
--- str = str .. (read_nodes_from_file_contents_full(file_contents2, 4).str)
+str = str .. (read_nodes_from_file_contents_full(file_contents2, 1).str)
+str = str .. (read_nodes_from_file_contents_full(file_contents2, 2).str)
+str = str .. (read_nodes_from_file_contents_full(file_contents2, 3).str)
+str = str .. (read_nodes_from_file_contents_full(file_contents2, 4).str)
 
-local nodes_actually = read_nodes_from_file_contents(vim.fn.readfile('seans-input.txt'))
-astar(nodes_actually.nodes, nodes_actually.line_length)
-
-local risk = count_path_risk(nodes_actually.nodes)
-print("Answer to part two (total risk): " .. tostring(risk))
+vim.fn.writefile(vim.split(str, '\n'), 'full-example-input-generated.txt')
+-- local nodes_actually = read_nodes_from_file_contents(vim.fn.readfile('seans-input.txt'))
+-- astar(nodes_actually.nodes, nodes_actually.line_length)
+-- 
+-- local risk = count_path_risk(nodes_actually.nodes)
+-- print("Answer to part two (total risk): " .. tostring(risk))
 
 -- print(str)
 

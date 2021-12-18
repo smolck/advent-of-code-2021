@@ -22,7 +22,7 @@ fn manhattan_dist(n1: &Node, n2: &Node) -> u32 {
 }
 
 fn main() {
-    let input = include_str!("../example-input.txt");
+    let input = include_str!("../full-input-generated.txt");
     let line_length = input.split("\n").next().unwrap().len() as i32;
     let input = input
         .split("\n")
@@ -51,10 +51,29 @@ fn main() {
         let idx_below = ((line_length * (current.y + 1)) + current.x) as usize;
 
         let neighbors = &[
-            input.get(current_idx + 1), // right
-            input.get(current_idx.wrapping_sub(1)), // left
-            input.get(idx_above), // above
-            input.get(idx_below), // below
+            if current.x == line_length - 1 {
+                None
+            } else {
+                input.get(current_idx + 1) // right
+            },
+
+            if current.x == 0 {
+                None
+            } else {
+                input.get(current_idx.wrapping_sub(1)) // left
+            },
+
+            if current.y == 0 {
+                None
+            } else {
+                input.get(idx_above) // above
+            },
+
+            if current.y == input.last().unwrap().y {
+                None
+            } else {
+                input.get(idx_below) // below
+            }
         ];
 
         for next in neighbors {
@@ -79,7 +98,6 @@ fn main() {
     let mut current = input.last().unwrap();
 
     loop {
-        println!("({}, {})", current.x, current.y);
         risk += current.risk;
         if let Some(node) = came_from[current] {
             current = node;
@@ -87,7 +105,6 @@ fn main() {
             break;
         }
     }
-    println!("{:?}", cost_so_far.values());
 
-    println!("{:?}", risk);
+    println!("{:?}", risk - input[0].risk);
 }
