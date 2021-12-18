@@ -58,3 +58,5 @@ day14/*.exe
 day14/*.o
 day14/*.obj
 day14/*.lst
+
+day15/rust/target
