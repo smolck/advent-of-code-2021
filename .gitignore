@@ -60,3 +60,5 @@ day14/*.obj
 day14/*.lst
 
 day15/rust/target
+
+day16/target
