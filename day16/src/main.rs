@@ -146,31 +146,6 @@ where
             read_bits += 1;
         }
 
-        /*if i.next().unwrap() == '1' { num_of_subpackets |= 1 << 11; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 << 10; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  9; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  8; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  7; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  6; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  5; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  4; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  3; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  2; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1 <<  1; }
-        read_bits += 1;
-        if i.next().unwrap() == '1' { num_of_subpackets |= 1      ; }
-        read_bits += 1;*/
-
         ForParsing::NumOfSubpackets(u32::from_str_radix(&num_of_subpackets, 2).unwrap())
     };
 
