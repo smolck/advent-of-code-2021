@@ -74,6 +74,7 @@ enum Packet {
     },
     OperatorPacket {
         version: u8,
+        type_id: u8,
         subpackets: Vec<Packet>,
     },
 }
@@ -170,17 +171,60 @@ where
         }
     }
 
-    (read_bits, Packet::OperatorPacket { version: header.version, subpackets })
+    (read_bits, Packet::OperatorPacket { version: header.version, type_id: header.type_id, subpackets })
 }
 
 fn sum_packet_versions(packet: &Packet) -> u32 {
     match packet {
         Packet::LiteralPacket { version, .. } => *version as u32,
-        Packet::OperatorPacket { version, subpackets } => {
+        Packet::OperatorPacket { version, subpackets, .. } => {
             let mut sum = *version as u32;
             for subpacket in subpackets {
                 sum += sum_packet_versions(subpacket);
             }
+
+            sum
+        }
+    }
+}
+
+fn find_outermost_value(p: &Packet) -> u64 {
+    match p {
+        Packet::LiteralPacket { value, .. } => *value as u64,
+        Packet::OperatorPacket { type_id, subpackets, .. } => {
+            let mapped = subpackets.iter().map(|p| find_outermost_value(p));
+
+            let sum = match type_id {
+                0 => mapped.sum(),
+                1 => mapped.fold(1, |acc, v| acc * v),
+                2 => mapped.min().unwrap(),
+                3 => mapped.max().unwrap(),
+                5 => {
+                    let values = mapped.collect::<Vec<u64>>();
+                    if values[0] > values[1] {
+                        1
+                    } else {
+                        0
+                    }
+                }
+                6 => {
+                    let values = mapped.collect::<Vec<u64>>();
+                    if values[0] < values[1] {
+                        1
+                    } else {
+                        0
+                    }
+                }
+                7 => {
+                    let values = mapped.collect::<Vec<u64>>();
+                    if values[0] == values[1] {
+                        1
+                    } else {
+                        0
+                    }
+                }
+                _ => unreachable!(),
+            };
 
             sum
         }
@@ -194,4 +238,6 @@ fn main() {
     let (_bits_read, p) = parse_packet(&mut char_iter);
 
     println!("Part one answer, sum of packet versions: {}", sum_packet_versions(&p));
+
+    println!("Part two answer, value of packet: {}", find_outermost_value(&p));
 }
